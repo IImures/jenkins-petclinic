@@ -10,9 +10,17 @@
 
   <groupId>org.springframework.samples</groupId>
   <artifactId>spring-petclinic</artifactId>
-  <version>4.0.0-SNAPSHOT</version>
+  <version>4.0.0</version>
 
   <name>petclinic</name>
+
+  <distributionManagement>
+    <repository>
+      <id>local-nexus</id>
+      <name>Local Nexus Releases</name>
+      <url>http://localhost:8081/repository/maven-releases/</url>
+    </repository>
+  </distributionManagement>
 
   <properties>
     <!-- Generic properties -->

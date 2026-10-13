@@ -1,3 +1,5 @@
+import java.awt.Desktop
+
 plugins {
   id 'java'
   id 'checkstyle'
@@ -66,6 +68,26 @@ tasks.named("cyclonedxDirectBom").configure {
   dependsOn("compileJava")
   skipConfigs = [".*[Tt]est.*"]
 }
+
+tasks.register('openTestReport') {
+  dependsOn(build)
+
+  doLast {
+    def reportFile = layout.buildDirectory
+      .file('reports/tests/test/index.html')
+      .get()
+      .asFile
+
+    if (reportFile.exists()) {
+      Desktop.desktop.browse(reportFile.toURI())
+    } else {
+      throw new GradleException(
+        "Test report not found: ${reportFile}"
+      )
+    }
+  }
+}
+
 
 checkstyle {
   configDirectory = project.file('src/checkstyle')
